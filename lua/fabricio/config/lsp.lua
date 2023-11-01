@@ -16,12 +16,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
     nmap("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
     nmap("<leader>ds", require("telescope.builtin").lsp_document_symbols, "[D]ocument [S]ymbols")
     nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
-
-    -- See `:help K` for why this keymap
     nmap("K", vim.lsp.buf.hover, "Hover Documentation")
     nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-
-    -- Lesser used LSP functionality
     nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
     nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
     nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
@@ -30,8 +26,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end, "[W]orkspace [L]ist Folders")
   end,
 })
-
-require("neodev").setup {}
 
 local lspconfig = require("lspconfig")
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -42,8 +36,7 @@ local default_setup = function(server)
   }
 end
 
-local on_attach = function(client, _)
-  -- Disable ruff-lsp hover in favor of pylsp
+local disable_hover = function(client, _)
   client.server_capabilities.hoverProvider = false
 end
 
@@ -52,7 +45,9 @@ require("mason-lspconfig").setup {
   ensure_installed = { "lua_ls", "clangd", "pylsp", "ruff_lsp" },
   handlers = {
     default_setup,
+
     lua_ls = function()
+      require("neodev").setup {}
       lspconfig.lua_ls.setup {
         capabilities = capabilities,
         settings = {
@@ -63,15 +58,14 @@ require("mason-lspconfig").setup {
         },
       }
     end,
+
     pylsp = function()
       lspconfig.pylsp.setup {
         capabilities = capabilities,
         settings = {
           pylsp = {
             plugins = {
-              autopep8 = { enabled = false },
               pycodestyle = { enabled = false },
-              yapf = { enabled = false },
               pyflakes = { enabled = false },
               mccabe = { enabled = false },
             },
@@ -79,9 +73,10 @@ require("mason-lspconfig").setup {
         },
       }
     end,
+
     ruff_lsp = function()
       lspconfig.ruff_lsp.setup {
-        on_attach = on_attach,
+        on_attach = disable_hover,
       }
     end,
   },

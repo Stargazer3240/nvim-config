@@ -1,13 +1,33 @@
 return {
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
   {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    opts = {
-      ensure_installed = {
-        "mypy",
-        "stylua",
+    "neovim/nvim-lspconfig",
+    config = function()
+      require("fabricio.config.lsp")
+    end,
+    dependencies = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+
+      {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        opts = {
+          ensure_installed = {
+            "mypy",
+            "stylua",
+          },
+        },
       },
+
+      {
+        "j-hui/fidget.nvim",
+        tag = "legacy",
+        event = "LspAttach",
+        opts = {},
+      },
+
+      "folke/neodev.nvim",
+
+      "onsails/lspkind.nvim",
     },
   },
 
@@ -27,7 +47,15 @@ return {
   {
     "mfussenegger/nvim-lint",
     config = function()
-      require("fabricio.config.lint")
+      local lint = require("lint")
+      vim.api.nvim_create_autocmd({ "BufWritePost", "BufReadPost", "InsertLeave" }, {
+        callback = function()
+          lint.try_lint()
+        end,
+      })
+      lint.linters_by_ft = {
+        python = { "mypy" },
+      }
     end,
   },
 
@@ -97,15 +125,6 @@ return {
   },
 
   {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require("fabricio.config.lsp")
-    end,
-  },
-
-  "folke/neodev.nvim",
-
-  {
     "hrsh7th/nvim-cmp",
     dependencies = {
       "L3MON4D3/LuaSnip",
@@ -149,6 +168,4 @@ return {
       },
     },
   },
-
-  { "onsails/lspkind.nvim" },
 }
