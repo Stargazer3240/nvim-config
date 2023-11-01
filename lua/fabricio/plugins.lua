@@ -1,4 +1,36 @@
 return {
+  "williamboman/mason.nvim",
+  "williamboman/mason-lspconfig.nvim",
+  {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    opts = {
+      ensure_installed = {
+        "mypy",
+        "stylua",
+      },
+    },
+  },
+
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+      },
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_fallback = true,
+      },
+    },
+  },
+
+  {
+    "mfussenegger/nvim-lint",
+    config = function()
+      require("fabricio.config.lint")
+    end,
+  },
+
   {
     "loctvl842/monokai-pro.nvim",
     priority = 1000,
@@ -60,17 +92,14 @@ return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-      require("config.treesitter")
+      require("fabricio.config.treesitter")
     end,
   },
-
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
 
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require("config.lsp")
+      require("fabricio.config.lsp")
     end,
   },
 
@@ -85,7 +114,7 @@ return {
       "rafamadriz/friendly-snippets",
     },
     config = function()
-      require("config.cmp")
+      require("fabricio.config.cmp")
     end,
   },
 
@@ -103,21 +132,8 @@ return {
       },
     },
     config = function()
-      require("config.telescope")
+      require("fabricio.config.telescope")
     end,
-  },
-
-  {
-    "stevearc/conform.nvim",
-    opts = {
-      formatters_by_ft = {
-        lua = { "stylua" },
-      },
-      format_on_save = {
-        timeout_ms = 500,
-        lsp_fallback = true,
-      },
-    },
   },
 
   {

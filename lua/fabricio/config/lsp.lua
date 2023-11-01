@@ -42,13 +42,18 @@ local default_setup = function(server)
   }
 end
 
+local on_attach = function(client, _)
+  -- Disable ruff-lsp hover in favor of pylsp
+  client.server_capabilities.hoverProvider = false
+end
+
 require("mason").setup {}
 require("mason-lspconfig").setup {
-  ensure_installed = {},
+  ensure_installed = { "lua_ls", "clangd", "pylsp", "ruff_lsp" },
   handlers = {
     default_setup,
     lua_ls = function()
-      require("lspconfig").lua_ls.setup {
+      lspconfig.lua_ls.setup {
         capabilities = capabilities,
         settings = {
           Lua = {
@@ -56,6 +61,27 @@ require("mason-lspconfig").setup {
             telemetry = { enable = false },
           },
         },
+      }
+    end,
+    pylsp = function()
+      lspconfig.pylsp.setup {
+        capabilities = capabilities,
+        settings = {
+          pylsp = {
+            plugins = {
+              autopep8 = { enabled = false },
+              pycodestyle = { enabled = false },
+              yapf = { enabled = false },
+              pyflakes = { enabled = false },
+              mccabe = { enabled = false },
+            },
+          },
+        },
+      }
+    end,
+    ruff_lsp = function()
+      lspconfig.ruff_lsp.setup {
+        on_attach = on_attach,
       }
     end,
   },
