@@ -52,6 +52,8 @@ map("n", "<C-q>", "<cmd>q<cr>", { desc = "Quit" })
 map("v", "<", "<gv")
 map("v", ">", ">gv")
 
+map("x", "<leader>p", [["_dP]], { desc = "Paste without yank" })
+
 -- Diagnostic keymaps
 map("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
 map("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next diagnostic message" })
