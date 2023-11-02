@@ -14,6 +14,8 @@ return {
           ensure_installed = {
             "mypy",
             "stylua",
+            "shfmt",
+            "shellcheck",
           },
         },
       },
@@ -36,6 +38,7 @@ return {
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },
+        bash = { "shfmt" },
       },
       format_on_save = {
         timeout_ms = 500,
@@ -55,6 +58,7 @@ return {
       })
       lint.linters_by_ft = {
         python = { "mypy" },
+        bash = { "shellcheck" },
       }
     end,
   },
