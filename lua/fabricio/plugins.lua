@@ -12,7 +12,6 @@ return {
         "WhoIsSethDaniel/mason-tool-installer.nvim",
         opts = {
           ensure_installed = {
-            "mypy",
             "stylua",
             "shfmt",
             "shellcheck",
@@ -57,7 +56,6 @@ return {
         end,
       })
       lint.linters_by_ft = {
-        python = { "mypy" },
         bash = { "shellcheck" },
       }
     end,

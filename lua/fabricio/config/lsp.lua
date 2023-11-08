@@ -40,13 +40,9 @@ local disable_hover = function(client, _)
   client.server_capabilities.hoverProvider = false
 end
 
-local disable_fmt = function(client, _)
-  client.server_capabilities.documentFormattingProvider = false
-end
-
 require("mason").setup {}
 require("mason-lspconfig").setup {
-  ensure_installed = { "lua_ls", "clangd", "pylsp", "ruff_lsp" },
+  ensure_installed = { "lua_ls", "clangd", "pyright", "ruff_lsp" },
   handlers = {
     default_setup,
 
@@ -58,24 +54,6 @@ require("mason-lspconfig").setup {
           Lua = {
             workspace = { checkThirdParty = false },
             telemetry = { enable = false },
-          },
-        },
-      }
-    end,
-
-    pylsp = function()
-      lspconfig.pylsp.setup {
-        on_attach = disable_fmt,
-        capabilities = capabilities,
-        settings = {
-          pylsp = {
-            plugins = {
-              pycodestyle = { enabled = false },
-              pyflakes = { enabled = false },
-              mccabe = { enabled = false },
-              autopep8 = { enabled = false },
-              yapf = { enabled = false },
-            },
           },
         },
       }

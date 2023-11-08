@@ -15,6 +15,7 @@ vim.defer_fn(function()
       "markdown_inline",
       "java",
       "json",
+      "toml",
     },
     auto_install = false,
     highlight = { enable = true },
