@@ -69,3 +69,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = highlight_group,
   pattern = "*",
 })
+
+map({ "i", "n" }, "<C-e>", "<cmd>Neotree toggle<cr>", { desc = "Toggle Neotree" })
+map({ "i", "n" }, "<C-f>", "<cmd>Neotree focus<cr>", { desc = "Focus Neotree" })
