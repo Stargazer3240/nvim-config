@@ -16,6 +16,7 @@ vim.defer_fn(function()
       "java",
       "json",
       "toml",
+      "yaml",
     },
     auto_install = false,
     highlight = { enable = true },

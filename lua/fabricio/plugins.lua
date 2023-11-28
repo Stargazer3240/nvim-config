@@ -15,6 +15,7 @@ return {
             "stylua",
             "shfmt",
             "shellcheck",
+            "markdownlint",
           },
         },
       },
@@ -38,6 +39,7 @@ return {
       formatters_by_ft = {
         lua = { "stylua" },
         bash = { "shfmt" },
+        markdown = { "markdownlint" },
       },
       format_on_save = {
         timeout_ms = 500,
@@ -57,6 +59,7 @@ return {
       })
       lint.linters_by_ft = {
         bash = { "shellcheck" },
+        markdown = { "markdownlint" },
       }
     end,
   },

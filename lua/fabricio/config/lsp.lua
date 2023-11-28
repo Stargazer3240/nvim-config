@@ -42,7 +42,7 @@ end
 
 require("mason").setup {}
 require("mason-lspconfig").setup {
-  ensure_installed = { "lua_ls", "clangd", "pyright", "ruff_lsp" },
+  ensure_installed = { "lua_ls", "clangd", "pyright", "ruff_lsp", "marksman", "vale_ls" },
   handlers = {
     default_setup,
 
