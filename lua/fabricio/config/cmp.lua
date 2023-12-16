@@ -6,12 +6,14 @@ luasnip.config.setup {}
 
 local lspkind = require("lspkind")
 
----@diagnostic disable-next-line: missing-fields
 cmp.setup {
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
     end,
+  },
+  completion = {
+    completeopt = "menu,menuone,noinsert",
   },
   mapping = cmp.mapping.preset.insert {
     ["<C-n>"] = cmp.mapping.select_next_item(),
@@ -46,7 +48,6 @@ cmp.setup {
     { name = "nvim_lsp" },
     { name = "luasnip" },
   },
-  ---@diagnostic disable-next-line: missing-fields
   formatting = {
     format = lspkind.cmp_format {},
   },
