@@ -16,6 +16,9 @@ return {
             "shfmt",
             "shellcheck",
             "markdownlint",
+            "clang-format",
+            "gersemi",
+            "cmakelint",
           },
         },
       },
@@ -38,6 +41,8 @@ return {
         lua = { "stylua" },
         bash = { "shfmt" },
         markdown = { "markdownlint" },
+        cpp = { "clang_format" },
+        cmake = { "gersemi" },
       },
       format_on_save = {
         timeout_ms = 500,
@@ -58,6 +63,7 @@ return {
       lint.linters_by_ft = {
         bash = { "shellcheck" },
         markdown = { "markdownlint" },
+        cmake = { "cmakelint" },
       }
     end,
   },
